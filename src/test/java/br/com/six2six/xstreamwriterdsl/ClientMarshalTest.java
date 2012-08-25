@@ -29,7 +29,7 @@ public class ClientMarshalTest {
 		
 		Fixture.of(Address.class).addTemplate("valid", new Rule() {{
 			add("street", "Ibirapuera Avenue");
-			add("city", "S‹o Paulo");
+			add("city", "Sao Paulo");
 			add("state", "${city}");
 			add("country", "Brazil");
 			add("zipCode", "17720000");
@@ -44,8 +44,8 @@ public class ClientMarshalTest {
 							 + "  <email>casinha@gmail.com</email>\n"
 							 + "  <home-address>\n"
 							 + "    <street>Ibirapuera Avenue</street>\n"
-							 + "    <city>S‹o Paulo</city>\n"
-							 + "    <state>S‹o Paulo</state>\n"
+							 + "    <city>Sao Paulo</city>\n"
+							 + "    <state>Sao Paulo</state>\n"
 							 + "    <country>Brazil</country>\n"
 							 + "    <zip-code>17720000</zip-code>\n"
 							 + "  </home-address>\n"
