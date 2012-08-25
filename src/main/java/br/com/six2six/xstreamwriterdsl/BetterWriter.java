@@ -36,6 +36,12 @@ public class BetterWriter<T> {
 		return this;
 	}
 
+	public BetterWriter<T> node(String name, Object value, Receiver receiver) {
+		if (get(value) == null && receiver.writeIfNotNull()) return this; 
+		write(name, receiver.format(get(value)));
+		return this;
+	}
+	
 	public BetterWriter<T> delegate(Object value) {
 		context.convertAnother(get(value));
 		return this;

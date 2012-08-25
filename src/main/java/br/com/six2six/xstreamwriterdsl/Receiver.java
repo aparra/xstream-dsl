@@ -30,13 +30,15 @@ public class Receiver {
 	}
 	
 	public <T> String format(T value) {
-		Formatter formatter = this.getFormatter(value);
+		if (value == null) return "";
+		
+		Formatter formatter = this.getFormatter(value.getClass());
 		return formatter == null ? value.toString() : formatter.format(value); 
 	}
 	
-	private <T> Formatter getFormatter(T value) {
+	private <T> Formatter getFormatter(Class<?> type) {
 		for (Option option : options) { 
-			if (option.getFormatter().canFormat(value.getClass())) return option.getFormatter();
+			if (option.hasFormmatter() && option.getFormatter().canFormat(type)) return option.getFormatter();
 		}
 		return null;
 	}

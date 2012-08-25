@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import br.com.fixturefactory.Fixture;
 import br.com.fixturefactory.Rule;
+import br.com.six2six.xstreamwriterdsl.converter.AddressConverter;
 import br.com.six2six.xstreamwriterdsl.converter.ClientConverter;
 import br.com.six2six.xstreamwriterdsl.model.Address;
 import br.com.six2six.xstreamwriterdsl.model.Client;
@@ -46,7 +47,7 @@ public class ClientMarshalTest {
 							 + "    <city>S‹o Paulo</city>\n"
 							 + "    <state>S‹o Paulo</state>\n"
 							 + "    <country>Brazil</country>\n"
-							 + "    <zipCode>17720000</zipCode>\n"
+							 + "    <zip-code>17720000</zip-code>\n"
 							 + "  </home-address>\n"
 							 + "</br.com.six2six.xstreamwriterdsl.model.Client>";
 		
@@ -54,6 +55,7 @@ public class ClientMarshalTest {
 		
 		XStream xstream = new XStream();
 		xstream.registerConverter(new ClientConverter());
+		xstream.registerConverter(new AddressConverter());
 		xstream.setMode(XStream.NO_REFERENCES);
 		
 		assertEquals(content, xstream.toXML(client));

@@ -20,6 +20,10 @@ public class Option {
 		return formatter;
 	}
 
+	public boolean hasFormmatter() {
+		return formatter != null;
+	}
+	
 	public static class Builder {
 	
 		private Token token;

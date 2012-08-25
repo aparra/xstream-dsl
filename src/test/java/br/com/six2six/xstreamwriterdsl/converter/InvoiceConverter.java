@@ -1,7 +1,8 @@
 package br.com.six2six.xstreamwriterdsl.converter;
 
 import static br.com.six2six.xstreamwriterdsl.BetterWriter.build;
-import br.com.six2six.xstreamwriterdsl.model.Address;
+import static br.com.six2six.xstreamwriterdsl.Receiver.options;
+import br.com.six2six.xstreamwriterdsl.model.Invoice;
 
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
@@ -9,21 +10,18 @@ import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
-public class AddressConverter implements Converter {
+public class InvoiceConverter implements Converter {
 
 	@Override
 	public boolean canConvert(@SuppressWarnings("rawtypes") Class type) {
-		return Address.class.equals(type);
+		return Invoice.class.equals(type);
 	}
 
 	@Override
 	public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
 		build(writer, context).to(source)
-			.node("#street")
-			.node("#city")
-			.node("#state")
-			.node("#country")
-			.node("zip-code", "#zipCode");
+			.node("#id")
+			.node("total", "#amount", options(":if_not_null"));
 	}
 
 	@Override

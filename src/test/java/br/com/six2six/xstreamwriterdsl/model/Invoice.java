@@ -6,7 +6,7 @@ import java.util.Date;
 public class Invoice {
 
 	private String id;
-	private BigDecimal ammount;
+	private BigDecimal amount;
 	private Date dueDate;
 
 	public String getId() {
@@ -16,11 +16,11 @@ public class Invoice {
 		this.id = id;
 	}
 	
-	public BigDecimal getAmmount() {
-		return ammount;
+	public BigDecimal getAmount() {
+		return amount;
 	}
-	public void setAmmount(BigDecimal ammount) {
-		this.ammount = ammount;
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
 	}
 	
 	public Date getDueDate() {
