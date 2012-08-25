@@ -1,24 +1,45 @@
 package br.com.six2six.xstreamwriterdsl;
 
-import java.util.HashSet;
-import java.util.Set;
+import br.com.six2six.xstreamwriterdsl.format.DateTimeFormat;
+import br.com.six2six.xstreamwriterdsl.format.Formatter;
 
 public class Option {
 
-	private Set<Token> tokens = new HashSet<Option.Token>();
+	private final Token token;
+	private final Formatter formatter;
+
+	private Option(Builder builder) {
+		this.token = builder.token;
+		this.formatter = builder.formatter;
+	}
+
+	public Token getToken() {
+		return token;
+	}
+	public Formatter getFormatter() {
+		return formatter;
+	}
+
+	public static class Builder {
 	
-	public static Option options(String ...options) {
-		Option option = new Option();
-		
-		for (String representation : options) {
-			option.tokens.add(Token.from(representation));
+		private Token token;
+		private Formatter formatter;
+
+		public Builder token(String value) {
+			token = Token.from(value);
+			return this;
+		}
+
+		public Builder format(String format) {
+			if (token == Token.DATE_FORMAT) {
+				this.formatter = new DateTimeFormat(format);
+			}
+			return this;
 		}
 		
-		return option;
-	}
-	
-	public boolean writeIfNotNull() {
-		return tokens.contains(Token.IF_NOT_NULL);
+		public Option build() {
+			return new Option(this);
+		}
 	}
 	
 	public enum Token {
