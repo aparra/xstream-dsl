@@ -20,10 +20,18 @@ public class ClientMarshalTest {
 		Fixture.of(Client.class).addTemplate("valid", new Rule() {{
 			add("id", 1L);
 			add("name", "Ander Parra");
-			add("nickname", random("casinha"));
+			add("nickname", "casinha");
 			add("email", "${nickname}@gmail.com");
 			add("birthday", instant("18 years ago"));
 			add("address", fixture(Address.class, "valid"));
+		}});
+		
+		Fixture.of(Address.class).addTemplate("valid", new Rule() {{
+			add("street", "Ibirapuera Avenue");
+			add("city", "S‹o Paulo");
+			add("state", "${city}");
+			add("country", "Brazil");
+			add("zipCode", "17720000");
 		}});
 	}
 	
@@ -33,6 +41,13 @@ public class ClientMarshalTest {
 							 + "  <code>1</code>\n"
 							 + "  <fullName>Ander Parra</fullName>\n"
 							 + "  <email>casinha@gmail.com</email>\n"
+							 + "  <home-address>\n"
+							 + "    <street>Ibirapuera Avenue</street>\n"
+							 + "    <city>S‹o Paulo</city>\n"
+							 + "    <state>S‹o Paulo</state>\n"
+							 + "    <country>Brazil</country>\n"
+							 + "    <zipCode>17720000</zipCode>\n"
+							 + "  </home-address>\n"
 							 + "</br.com.six2six.xstreamwriterdsl.model.Client>";
 		
 		Client client = Fixture.from(Client.class).gimme("valid");
