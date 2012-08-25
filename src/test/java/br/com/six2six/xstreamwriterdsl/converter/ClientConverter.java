@@ -18,9 +18,7 @@ public class ClientConverter implements Converter {
 
 	@Override
 	public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
-		Client client = (Client) source;
-		
-		build(writer, context).to(client)
+		build(writer, context).to(source)
 			.node("code", "#id")
 			.node("fullName", "#name")
 			.node("#email")

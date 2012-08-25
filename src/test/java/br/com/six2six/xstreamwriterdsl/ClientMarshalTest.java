@@ -16,7 +16,7 @@ import com.thoughtworks.xstream.XStream;
 public class ClientMarshalTest {
 
 	@Before
-	public void setUp() {
+	public void setup() {
 		Fixture.of(Client.class).addTemplate("valid", new Rule() {{
 			add("id", 1L);
 			add("name", "Ander Parra");
