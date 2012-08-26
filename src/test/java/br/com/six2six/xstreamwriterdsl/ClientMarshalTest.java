@@ -52,12 +52,16 @@ public class ClientMarshalTest {
 							 + "</br.com.six2six.xstreamwriterdsl.model.Client>";
 		
 		Client client = Fixture.from(Client.class).gimme("valid");
-		
-		XStream xstream = new XStream();
+		assertEquals(content, xstream().toXML(client));
+	}
+	
+	private XStream xstream() {
+		XStream xstream = new XStream() {
+			{setMode(NO_REFERENCES);}
+		};
 		xstream.registerConverter(new ClientConverter());
 		xstream.registerConverter(new AddressConverter());
-		xstream.setMode(XStream.NO_REFERENCES);
-		
-		assertEquals(content, xstream.toXML(client));
+
+		return xstream;
 	}
 }

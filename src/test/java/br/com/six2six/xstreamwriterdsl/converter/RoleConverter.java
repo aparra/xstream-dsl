@@ -1,5 +1,6 @@
 package br.com.six2six.xstreamwriterdsl.converter;
 
+import static br.com.six2six.xstreamwriterdsl.BetterWriter.build;
 import br.com.six2six.xstreamwriterdsl.model.User;
 
 import com.thoughtworks.xstream.converters.Converter;
@@ -17,9 +18,7 @@ public class RoleConverter implements Converter {
 
 	@Override
 	public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
-		writer.startNode("role");
-		writer.setValue(source.toString());
-		writer.endNode();
+		build(writer, context).node("role", source);
 	}
 
 	@Override

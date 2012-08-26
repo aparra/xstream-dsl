@@ -36,12 +36,16 @@ public class UserMarshalTest {
 							 + "</br.com.six2six.xstreamwriterdsl.model.User>";
 		
 		User user = Fixture.from(User.class).gimme("tomcat");
-		
-		XStream xstream = new XStream();
+		assertEquals(content, xstream().toXML(user));
+	}
+	
+	private XStream xstream() {
+		XStream xstream = new XStream() {
+			{setMode(NO_REFERENCES);}
+		};
 		xstream.registerConverter(new UserConverter());
 		xstream.registerConverter(new RoleConverter());
-		xstream.setMode(XStream.NO_REFERENCES);
-		
-		assertEquals(content, xstream.toXML(user));
+
+		return xstream;
 	}
 }

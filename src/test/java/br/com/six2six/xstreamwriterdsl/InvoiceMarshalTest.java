@@ -40,12 +40,7 @@ public class InvoiceMarshalTest {
 							 + "</br.com.six2six.xstreamwriterdsl.model.Invoice>";
 		
 		Invoice invoice = Fixture.from(Invoice.class).gimme("without_amount");
-		
-		XStream xstream = new XStream();
-		xstream.registerConverter(new InvoiceConverter());
-		xstream.setMode(XStream.NO_REFERENCES);
-		
-		assertEquals(content, xstream.toXML(invoice));
+		assertEquals(content, xstream().toXML(invoice));
 	}
 
 	@Test
@@ -57,12 +52,7 @@ public class InvoiceMarshalTest {
 							 + "</br.com.six2six.xstreamwriterdsl.model.Invoice>";
 		
 		Invoice invoice = Fixture.from(Invoice.class).gimme("complete");
-		
-		XStream xstream = new XStream();
-		xstream.registerConverter(new InvoiceConverter());
-		xstream.setMode(XStream.NO_REFERENCES);
-		
-		assertEquals(content, xstream.toXML(invoice));
+		assertEquals(content, xstream().toXML(invoice));
 	}
 	
 	private Date createDate() {
@@ -72,5 +62,13 @@ public class InvoiceMarshalTest {
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	private XStream xstream() {
+		XStream xstream = new XStream() {
+			{setMode(NO_REFERENCES);}
+		};
+		xstream.registerConverter(new InvoiceConverter());
+		return xstream;
 	}
 }

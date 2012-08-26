@@ -43,11 +43,15 @@ public class OrderMarshalTest {
 							 + "</br.com.six2six.xstreamwriterdsl.model.Order>";
 		
 		Order order = Fixture.from(Order.class).gimme("buyed");
-		
-		XStream xstream = new XStream();
+		assertEquals(content, xstream().toXML(order));
+	}
+	
+	private XStream xstream() {
+		XStream xstream = new XStream() {
+			{setMode(NO_REFERENCES);}
+		};
 		xstream.registerConverter(new OrderConverter());
-		xstream.setMode(XStream.NO_REFERENCES);
 
-		assertEquals(content, xstream.toXML(order));
+		return xstream;
 	}
 }
