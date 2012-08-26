@@ -16,6 +16,7 @@ import br.com.six2six.xstreamwriterdsl.converter.InvoiceConverter;
 import br.com.six2six.xstreamwriterdsl.model.Invoice;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
 
 public class InvoiceMarshalTest {
 
@@ -40,7 +41,7 @@ public class InvoiceMarshalTest {
 							 + "</br.com.six2six.xstreamwriterdsl.model.Invoice>";
 		
 		Invoice invoice = Fixture.from(Invoice.class).gimme("without_amount");
-		assertEquals(content, xstream().toXML(invoice));
+		assertEquals(content, driverXML().toXML(invoice));
 	}
 
 	@Test
@@ -52,7 +53,30 @@ public class InvoiceMarshalTest {
 							 + "</br.com.six2six.xstreamwriterdsl.model.Invoice>";
 		
 		Invoice invoice = Fixture.from(Invoice.class).gimme("complete");
-		assertEquals(content, xstream().toXML(invoice));
+		assertEquals(content, driverXML().toXML(invoice));
+	}
+	
+	@Test
+	public void partilaInvoiceToJSON() {
+		final String content = "{\"br.com.six2six.xstreamwriterdsl.model.Invoice\": {\n"
+							 + "  \"id\": 1,\n"
+							 + "  \"dueDate\": \n"
+							 + "}}";
+
+		Invoice invoice = Fixture.from(Invoice.class).gimme("without_amount");
+		assertEquals(content, driverJSON().toXML(invoice));
+	}
+
+	@Test
+	public void completeInvoiceToJSON() {
+		final String content = "{\"br.com.six2six.xstreamwriterdsl.model.Invoice\": {\n"
+							 + "  \"id\": 1,\n"
+							 + "  \"total\": 10,\n"
+							 + "  \"dueDate\": 15/04/1987\n"
+							 + "}}";
+		
+		Invoice invoice = Fixture.from(Invoice.class).gimme("complete");
+		assertEquals(content, driverJSON().toXML(invoice));
 	}
 	
 	private Date createDate() {
@@ -64,8 +88,16 @@ public class InvoiceMarshalTest {
 		}
 	}
 	
-	private XStream xstream() {
+	private XStream driverXML() {
 		XStream xstream = new XStream() {
+			{setMode(NO_REFERENCES);}
+		};
+		xstream.registerConverter(new InvoiceConverter());
+		return xstream;
+	}
+	
+	private XStream driverJSON() {
+		XStream xstream = new XStream(new JsonHierarchicalStreamDriver()) {
 			{setMode(NO_REFERENCES);}
 		};
 		xstream.registerConverter(new InvoiceConverter());
