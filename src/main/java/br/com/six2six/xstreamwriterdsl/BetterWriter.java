@@ -29,7 +29,7 @@ public class BetterWriter<T> {
 	}
 	
 	public BetterWriter<T> node(String property) {
-		write(normalize(property), invokeRecursiveGetter(bean, normalize(property)));
+		write(normalize(property), get(property));
 		return this;
 	}
 	
