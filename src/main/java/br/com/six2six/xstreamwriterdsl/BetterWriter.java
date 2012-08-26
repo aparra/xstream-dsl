@@ -32,6 +32,7 @@ public class BetterWriter<T> {
 	}
 	
 	public BetterWriter<T> node(String name, Object value) {
+		if (value instanceof Receiver) return node(normalize(name), name, (Receiver) value); 
 		write(name, get(value));
 		return this;
 	}

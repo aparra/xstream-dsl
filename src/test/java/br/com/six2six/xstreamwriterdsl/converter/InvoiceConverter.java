@@ -21,7 +21,8 @@ public class InvoiceConverter implements Converter {
 	public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
 		build(writer, context).to(source)
 			.node("#id")
-			.node("total", "#amount", options(":if_not_null"));
+			.node("total", "#amount", options(":if_not_null"))
+			.node("#dueDate", options(":date_format => dd/MM/yyyy"));
 	}
 
 	@Override
