@@ -2,6 +2,8 @@ package br.com.six2six.xstreamwriterdsl;
 
 import static br.com.six2six.xstreamwriterdsl.util.ReflectionUtils.invokeRecursiveGetter;
 
+import java.util.Collection;
+
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
@@ -43,11 +45,20 @@ public class BetterWriter<T> {
 		return this;
 	}
 	
-	public BetterWriter<T> delegate(Object value) {
-		context.convertAnother(get(value));
+	public BetterWriter<T> delegate(Object bean) {
+		context.convertAnother(get(bean));
 		return this;
 	}
 
+	public BetterWriter<T> collection(String property) {
+		writer.startNode(normalize(property));
+		for (Object bean : (Collection<?>) get(property)) {
+			delegate(bean);
+		}
+		writer.endNode();
+		return this;
+	}
+	
 	public BetterWriter<T> delegate(String name, Object value) {
 		writer.startNode(name);
 		context.convertAnother(get(value));
