@@ -51,11 +51,12 @@ public class BetterWriter<T> {
 	}
 
 	public BetterWriter<T> collection(String property) {
-		writer.startNode(normalize(property));
-		for (Object bean : (Collection<?>) get(property)) {
-			delegate(bean);
-		}
-		writer.endNode();
+		write(normalize(property), (Collection<?>) get(property));
+		return this;
+	}
+
+	public BetterWriter<T> collection(String name, Object value) {
+		write(name, (Collection<?>) get(value));
 		return this;
 	}
 	
@@ -66,11 +67,18 @@ public class BetterWriter<T> {
 		return this;
 	}
 	
-	private BetterWriter<T> write(String name, Object value) {
+	private void write(String name, Object value) {
 		writer.startNode(name);
 		writer.setValue(defaultIfEmpty(value));
 		writer.endNode();
-		return this;
+	}
+	
+	private void write(String name, Collection<?> values) {
+		writer.startNode(name);
+		for (Object bean : values) {
+			delegate(bean);
+		}
+		writer.endNode();
 	}
 	
 	private String defaultIfEmpty(Object value) {

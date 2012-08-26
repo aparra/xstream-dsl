@@ -24,7 +24,7 @@ public class OrderMarshalTest {
 		
 		Fixture.of(Product.class).addTemplate("niceThings", new Rule() {{
 			add("id", sequence(1, 1));
-			add("name", "niething");
+			add("name", "nicething");
 		}});
 	}
 	
