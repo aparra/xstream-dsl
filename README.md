@@ -19,7 +19,8 @@ use it like a maven dependency on your project
 
 writing nodes with new dsl 
 
-  converter to Client:
+converter to Client:
+
 	public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
 	  build(writer, context).to(source)
 	    .node("code", "#id")
@@ -28,7 +29,8 @@ writing nodes with new dsl
 	    .delegate("home-address", "#address");
 	}
 
-  converter to Address:
+converter to Address:
+
 	public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
 	  build(writer, context).to(source)
 	    .node("#street")
@@ -38,19 +40,22 @@ writing nodes with new dsl
 	    .node("zip-code", "#zipCode");
 	}
 
-  converter to Order:
+converter to Order:
+
 	public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
  	  build(writer, context).to(source)
   	    .node("#id")
 	    .collection("#products");
 	}
 
-  converter to User.Role:
+converter to User.Role:
+
 	public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
 	  build(writer, context).node("role", source);
 	}
 
-  converter to Invoice:
+converter to Invoice:
+
 	public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
 	  build(writer, context).to(source)
 	    .node("#id")
