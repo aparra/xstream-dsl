@@ -57,4 +57,4 @@ You can see more utilization on [tests](xstream-writer-dsl/tree/master/src/test/
 
 ### birth 
 
-[xstream framework](http://xstream.codehaus.org)! is cool, but it is boring to work with their converters. Thinking about it, we ([anderparra](https://github.com/aparra)!, [douglasrodrigo](https://github.com/douglasrodrigo)! and [bjornnborg](https://github.com/bjornnborg)! created a new dsl to facilitate our work.
+[xstream framework](http://xstream.codehaus.org) is cool, but it is boring to work with their converters. Thinking about it, we ([anderparra](https://github.com/aparra), [douglasrodrigo](https://github.com/douglasrodrigo) and [bjornnborg](https://github.com/bjornnborg) created a new dsl to facilitate our work.
