@@ -1,4 +1,4 @@
-xstream writer dsl - a simple dsl for wrtier nodes with xstream 
+xstream-writer-dsl - a simple dsl for writer nodes with xstream 
 ================================================================== 
 
 ### installing
