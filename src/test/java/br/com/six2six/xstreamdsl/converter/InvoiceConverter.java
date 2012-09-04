@@ -2,6 +2,8 @@ package br.com.six2six.xstreamdsl.converter;
 
 import static br.com.six2six.xstreamdsl.marshal.BetterMarshal.build;
 import static br.com.six2six.xstreamdsl.marshal.Receiver.options;
+import static br.com.six2six.xstreamdsl.unmarshal.BetterUnmarshal.build;
+import static br.com.six2six.xstreamdsl.unmarshal.transform.DateTimeTransformer.from;
 import br.com.six2six.xstreamdsl.model.Invoice;
 
 import com.thoughtworks.xstream.converters.Converter;
@@ -27,6 +29,10 @@ public class InvoiceConverter implements Converter {
 
 	@Override
 	public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
-		return null;
+		return build(reader, context).to(Invoice.class)
+				.node("id")
+				.node("amount")
+				.node("dueDate", from("dd/MM/yyyy"))
+				.get();
 	}
 }

@@ -57,6 +57,8 @@ public class BetterUnmarshal<T> {
 	}
 
 	private String getValue() {
+		if (!reader.hasMoreChildren()) return null;
+		
 		reader.moveDown();
 		String value = reader.getValue();
 		reader.moveUp();
