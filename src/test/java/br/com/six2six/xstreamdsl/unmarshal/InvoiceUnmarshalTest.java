@@ -19,7 +19,7 @@ import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 public class InvoiceUnmarshalTest {
 
 	@Test
-	public void partialInvoinceToXML() {
+	public void partialInvoinceXMLToObject() {
 		final String content = "<br.com.six2six.xstreamdsl.model.Invoice>\n"
 							 + "  <id>1</id>\n"
 							 + "  <dueDate></dueDate>\n"
@@ -33,7 +33,7 @@ public class InvoiceUnmarshalTest {
 	}
 
 	@Test
-	public void completeInvoiceToXML() {
+	public void completeInvoiceXMLToObject() {
 		final String content = "<br.com.six2six.xstreamdsl.model.Invoice>\n"
 							 + "  <id>1</id>\n"
 							 + "  <total>10</total>\n"
@@ -48,7 +48,7 @@ public class InvoiceUnmarshalTest {
 	}
 	
 	@Test
-	public void partilaInvoiceToJSON() {
+	public void partilaInvoiceJSONToObject() {
 		final String content = "{\"br.com.six2six.xstreamdsl.model.Invoice\": {\n"
 							 + "  \"id\": 1,\n"
 							 + "  \"dueDate\": \"\" \n"
@@ -62,7 +62,7 @@ public class InvoiceUnmarshalTest {
 	}
 
 	@Test
-	public void completeInvoiceToJSON() {
+	public void completeInvoiceJSONToObject() {
 		final String content = "{\"br.com.six2six.xstreamdsl.model.Invoice\": {\n"
 							 + "  \"id\": \"1\",\n"
 							 + "  \"total\": \"10\",\n"

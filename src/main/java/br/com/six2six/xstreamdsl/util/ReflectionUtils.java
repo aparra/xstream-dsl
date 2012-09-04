@@ -1,10 +1,16 @@
 package br.com.six2six.xstreamdsl.util;
 
 import static java.lang.String.format;
+import static org.apache.commons.lang.ClassUtils.isAssignable;
 import static org.apache.commons.lang.StringUtils.defaultIfEmpty;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.PropertyUtilsBean;
@@ -53,6 +59,12 @@ public class ReflectionUtils {
             throw new IllegalArgumentException(e);
         }
     }
+    
+	@SuppressWarnings("unchecked")
+	public static <T> Collection<T> newInstanceCollection(Class<?> clazz) {
+		if (isAssignable(clazz, Set.class)) return newInstance(HashSet.class);
+		return newInstance(ArrayList.class);
+	}
     
     private static Object prepareInvokeRecursiveSetter(Object bean, String attribute) {
         Object targetBean = bean;
@@ -104,5 +116,10 @@ public class ReflectionUtils {
     
     private static PropertyUtilsBean getPropertyUtilsBean() {
     	return BeanUtilsBean.getInstance().getPropertyUtils();
+    }
+    
+    public static Class<?> genericTypeFromField(Object bean, String attribute) {
+    	Field field = invokeRecursiveField(bean, attribute);
+    	return (Class<?>) ((ParameterizedType) field.getGenericType()).getActualTypeArguments()[0];
     }
 }

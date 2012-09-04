@@ -1,10 +1,15 @@
 package br.com.six2six.xstreamdsl.unmarshal;
 
+import static br.com.six2six.xstreamdsl.util.ReflectionUtils.genericTypeFromField;
 import static br.com.six2six.xstreamdsl.util.ReflectionUtils.invokeRecursiveSetter;
 import static br.com.six2six.xstreamdsl.util.ReflectionUtils.invokeRecursiveType;
 import static br.com.six2six.xstreamdsl.util.ReflectionUtils.newInstance;
+import static br.com.six2six.xstreamdsl.util.ReflectionUtils.newInstanceCollection;
 import static org.apache.commons.lang.ClassUtils.isAssignable;
 import static org.apache.commons.lang.ClassUtils.primitiveToWrapper;
+
+import java.util.Collection;
+
 import br.com.six2six.xstreamdsl.unmarshal.transform.EnumTransformer;
 import br.com.six2six.xstreamdsl.unmarshal.transform.NumberTransformer;
 import br.com.six2six.xstreamdsl.unmarshal.transform.Transformer;
@@ -49,6 +54,22 @@ public class BetterUnmarshal<T> {
 		reader.moveDown();
 		invokeRecursiveSetter(bean, property, context.convertAnother(bean, type));
 		reader.moveUp();
+		return this;
+	}
+	
+	public BetterUnmarshal<T> collection(String property) {
+		Class<?> type = invokeRecursiveType(bean, property);
+		
+		Collection<Object> collection = newInstanceCollection(type);
+		
+		reader.moveDown();
+		while (reader.hasMoreChildren()) {
+			// FIME converter entry collection
+			collection.add(context.convertAnother(bean, genericTypeFromField(bean, property)));
+		}
+		reader.moveUp();
+		
+		invokeRecursiveSetter(bean, property, collection);
 		return this;
 	}
 	

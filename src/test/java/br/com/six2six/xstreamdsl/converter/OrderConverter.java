@@ -1,6 +1,7 @@
 package br.com.six2six.xstreamdsl.converter;
 
 import static br.com.six2six.xstreamdsl.marshal.BetterMarshal.build;
+import static br.com.six2six.xstreamdsl.unmarshal.BetterUnmarshal.build;
 import br.com.six2six.xstreamdsl.model.Order;
 
 import com.thoughtworks.xstream.converters.Converter;
@@ -25,6 +26,9 @@ public class OrderConverter implements Converter {
 
 	@Override
 	public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
-		return null;
+		return build(reader, context).to(Order.class)
+				.node("id")
+				.collection("products")
+				.get();
 	}
 }
