@@ -5,7 +5,9 @@ import static junit.framework.Assert.assertNotNull;
 
 import org.junit.Test;
 
+import br.com.six2six.xstreamwriterdsl.converter.AddressConverter;
 import br.com.six2six.xstreamwriterdsl.converter.ClientConverter;
+import br.com.six2six.xstreamwriterdsl.model.Address;
 import br.com.six2six.xstreamwriterdsl.model.Client;
 
 import com.thoughtworks.xstream.XStream;
@@ -33,6 +35,13 @@ public class ClientUnmarshalTest {
 		assertEquals(Long.valueOf(1), client.getId());
 		assertEquals("Ander Parra", client.getName());
 		assertEquals("casinha@gmail.com", client.getEmail());
+		
+		Address address = client.getAddress();
+		assertNotNull(address);
+		assertEquals("Ibirapuera Avenue", address.getStreet());
+		assertEquals("Sao Paulo", address.getCity());
+		assertEquals("Brazil", address.getCountry());
+		assertEquals("17720000", address.getZipCode());
 	}
 	
 	private XStream xstream() {
@@ -40,6 +49,7 @@ public class ClientUnmarshalTest {
 			{setMode(NO_REFERENCES);}
 		};
 		xstream.registerConverter(new ClientConverter());
+		xstream.registerConverter(new AddressConverter());
 
 		return xstream;
 	}

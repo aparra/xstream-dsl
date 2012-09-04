@@ -9,6 +9,7 @@ import br.com.six2six.xstreamwriterdsl.unmarshal.transform.EnumTransformer;
 import br.com.six2six.xstreamwriterdsl.unmarshal.transform.NumberTransformer;
 import br.com.six2six.xstreamwriterdsl.unmarshal.transform.Transformer;
 
+import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 
 public class BetterUnmarshal<T> {
@@ -16,13 +17,15 @@ public class BetterUnmarshal<T> {
 	private T bean;
 	
 	private final HierarchicalStreamReader reader;
+	private final UnmarshallingContext context;
 
-	private BetterUnmarshal(HierarchicalStreamReader reader) {
+	private BetterUnmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
 		this.reader = reader;
+		this.context = context;
 	}
 	
-	public static <T> BetterUnmarshal<T> build(HierarchicalStreamReader reader) {
-		return new BetterUnmarshal<T>(reader);
+	public static <T> BetterUnmarshal<T> build(HierarchicalStreamReader reader, UnmarshallingContext context) {
+		return new BetterUnmarshal<T>(reader, context);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -41,16 +44,14 @@ public class BetterUnmarshal<T> {
 		return this;
 	}
 
-	public BetterUnmarshal<T> node(String name, String property) {
-		invokeRecursiveSetter(bean, property, transform(property, getValue()));
+	public BetterUnmarshal<T> delegate(String property) {
+		Class<?> type = invokeRecursiveType(bean, property);
+		reader.moveDown();
+		invokeRecursiveSetter(bean, property, context.convertAnother(bean, type));
+		reader.moveUp();
 		return this;
 	}
 	
-	public BetterUnmarshal<T> node(String name, String property, Transformer transformer) {
-		invokeRecursiveSetter(bean, property, transform(property, getValue(), transformer));
-		return this;
-	}
-
 	public T get() {
 		return bean;
 	}

@@ -1,6 +1,7 @@
 package br.com.six2six.xstreamwriterdsl.converter;
 
 import static br.com.six2six.xstreamwriterdsl.BetterWriter.build;
+import static br.com.six2six.xstreamwriterdsl.unmarshal.BetterUnmarshal.build;
 import br.com.six2six.xstreamwriterdsl.model.Address;
 
 import com.thoughtworks.xstream.converters.Converter;
@@ -28,6 +29,12 @@ public class AddressConverter implements Converter {
 
 	@Override
 	public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
-		return null;
+		return build(reader, context).to(Address.class)
+				.node("street")
+				.node("city")
+				.node("state")
+				.node("country")
+				.node("zipCode")
+				.get();
 	}
 }
