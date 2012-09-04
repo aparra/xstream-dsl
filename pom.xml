@@ -3,9 +3,9 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.six2six</groupId>
-	<artifactId>xstream-writer-dsl</artifactId>
-	<version>0.0.1</version>
-	<name>xstream-writer-dsl</name>
+	<artifactId>xstream-dsl</artifactId>
+	<version>0.0.2</version>
+	<name>xstream-dsl</name>
 	<packaging>jar</packaging>
 
 	<dependencies>

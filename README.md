@@ -1,9 +1,9 @@
-xstream-writer-dsl - a simple dsl for writer nodes with xstream 
+xstream-dsl - a simple dsl for writer nodes with xstream 
 ================================================================== 
 
 ### installing
 
-clone xstream-wrtier-dsl project and install in your local repository
+clone xstream-dsl project and install in your local repository
  
 	$ mvn clean install
 
@@ -63,7 +63,7 @@ converter to Invoice:
 	    .node("#dueDate", options(":date_format => dd/MM/yyyy"));
 	}
 
-You can see more utilization on [tests](xstream-writer-dsl/tree/master/src/test/java/br/com/six2six/xstreamwriterdsl)!
+You can see more utilization on [tests](xstream-dsl/tree/master/src/test/java/br/com/six2six/xstreamdsl)!
 
 ### birth 
 
