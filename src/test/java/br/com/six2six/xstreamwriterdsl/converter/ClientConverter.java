@@ -2,6 +2,7 @@ package br.com.six2six.xstreamwriterdsl.converter;
 
 import static br.com.six2six.xstreamwriterdsl.BetterWriter.build;
 import br.com.six2six.xstreamwriterdsl.model.Client;
+import static br.com.six2six.xstreamwriterdsl.unmarshal.BetterUnmarshal.build;
 
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
@@ -27,6 +28,10 @@ public class ClientConverter implements Converter {
 
 	@Override
 	public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
-		return null;
+		return build(reader).to(Client.class)
+				.node("code", "id")
+				.node("fullName", "name")
+				.node("email")
+				.get();
 	}
 }
