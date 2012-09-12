@@ -64,8 +64,9 @@ public class BetterUnmarshal<T> {
 		
 		reader.moveDown();
 		while (reader.hasMoreChildren()) {
-			// FIME converter entry collection
+			reader.moveDown();
 			collection.add(context.convertAnother(bean, genericTypeFromField(bean, property)));
+			reader.moveUp();
 		}
 		reader.moveUp();
 		
