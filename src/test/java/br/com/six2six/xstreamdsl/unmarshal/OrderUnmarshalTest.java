@@ -19,12 +19,18 @@ public class OrderUnmarshalTest {
 		final String content = "<br.com.six2six.xstreamdsl.model.Order>\n"
 							 + "  <id>1</id>\n"
 							 + "  <products>\n"
-							 + "    <id>1</id>\n"
-							 + "    <name>nicething</name>\n"
-							 + "    <id>2</id>\n"
-							 + "    <name>nicething</name>\n"
-							 + "    <id>3</id>\n"
-							 + "    <name>nicething</name>\n"
+							 + "    <product>\n"
+							 + "      <id>1</id>\n"
+							 + "      <name>nicething</name>\n"
+							 + "    </product>\n"
+							 + "    <product>\n"
+							 + "      <id>2</id>\n"
+							 + "      <name>nicething</name>\n"
+							 + "    </product>\n"
+							 + "    <product>\n"
+							 + "      <id>3</id>\n"
+							 + "      <name>nicething</name>\n"
+							 + "    </product>\n"
 							 + "  </products>\n"
 							 + "</br.com.six2six.xstreamdsl.model.Order>";
 		
@@ -36,7 +42,7 @@ public class OrderUnmarshalTest {
 		
 		Integer i = 1;
 		for (Product product : order.getProducts()) {
-			assertEquals(i, product.getId());
+			assertEquals(i++, product.getId());
 			assertEquals("nicething", product.getName());
 		}
 	}
