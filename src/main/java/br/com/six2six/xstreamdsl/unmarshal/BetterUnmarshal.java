@@ -10,6 +10,7 @@ import static org.apache.commons.lang.ClassUtils.primitiveToWrapper;
 
 import java.util.Collection;
 
+import br.com.six2six.xstreamdsl.unmarshal.transform.BooleanTransformer;
 import br.com.six2six.xstreamdsl.unmarshal.transform.EnumTransformer;
 import br.com.six2six.xstreamdsl.unmarshal.transform.NumberTransformer;
 import br.com.six2six.xstreamdsl.unmarshal.transform.Transformer;
@@ -95,6 +96,10 @@ public class BetterUnmarshal<T> {
 		
 		} else if (isAssignable(type, Enum.class)) { 
 			return new EnumTransformer().transform(value, type);
+			
+		} else if (isAssignable(type, Boolean.class)) {
+			return new BooleanTransformer().transform(value, type);
+			
 		}
 
 		return value;
