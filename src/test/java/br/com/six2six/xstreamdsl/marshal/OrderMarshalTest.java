@@ -12,6 +12,7 @@ import br.com.six2six.xstreamdsl.model.Order;
 import br.com.six2six.xstreamdsl.model.Product;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
 
 public class OrderMarshalTest {
 
@@ -32,26 +33,62 @@ public class OrderMarshalTest {
 	public void toXml() {
 		final String content = "<br.com.six2six.xstreamdsl.model.Order>\n"
 							 + "  <id>1</id>\n"
-							 + "  <products>\n"
+							 + "  <br.com.six2six.xstreamdsl.model.Product>\n"
 							 + "    <id>1</id>\n"
-							 + "    <name>nicething</name>\n"
+							 + "    <name>nicething</name>\n" 
+							 + "  </br.com.six2six.xstreamdsl.model.Product>\n" 
+							 + "  <br.com.six2six.xstreamdsl.model.Product>\n"
 							 + "    <id>2</id>\n"
-							 + "    <name>nicething</name>\n"
+							 + "    <name>nicething</name>\n" 
+							 + "  </br.com.six2six.xstreamdsl.model.Product>\n"
+							 + "  <br.com.six2six.xstreamdsl.model.Product>\n"
 							 + "    <id>3</id>\n"
 							 + "    <name>nicething</name>\n"
-							 + "  </products>\n"
+							 + "  </br.com.six2six.xstreamdsl.model.Product>\n"
 							 + "</br.com.six2six.xstreamdsl.model.Order>";
 		
 		Order order = Fixture.from(Order.class).gimme("buyed");
-		assertEquals(content, xstream().toXML(order));
+		assertEquals(content, driverXML().toXML(order));
 	}
 	
-	private XStream xstream() {
+	@Test
+	public void toJson() {
+		final String content = "{\"br.com.six2six.xstreamdsl.model.Order\": {\n"
+							 + "  \"id\": 1,\n"
+							 + "  \"products\": [\n"
+							 + "    {\n"
+							 + "      \"id\": 1,\n"
+							 + "      \"name\": \"nicething\"\n"
+							 + "    },\n"
+							 + "    {\n"
+							 + "      \"id\": 2,\n"
+							 + "      \"name\": \"nicething\"\n"
+							 + "    },\n"
+							 + "    {\n"
+							 + "      \"id\": 3,\n"
+							 + "      \"name\": \"nicething\"\n"
+							 + "    }\n"
+							 + "  ]\n"
+							 + "}}";
+                             
+		Order order = Fixture.from(Order.class).gimme("buyed");
+		assertEquals(content, driverJSON().toXML(order));
+	}
+	
+	private XStream driverXML() {
 		XStream xstream = new XStream() {
 			{setMode(NO_REFERENCES);}
 		};
 		xstream.registerConverter(new OrderConverter());
 
+		return xstream;
+	}
+	
+	private XStream driverJSON() {
+		XStream xstream = new XStream(new JsonHierarchicalStreamDriver()) {
+			{setMode(NO_REFERENCES);}
+		};
+		xstream.registerConverter(new OrderConverter());
 		return xstream;
 	}
 }

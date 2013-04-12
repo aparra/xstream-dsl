@@ -7,6 +7,7 @@ import java.util.Collection;
 
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import com.thoughtworks.xstream.io.json.JsonWriter;
 
 public class BetterMarshal<T> {
 
@@ -75,11 +76,13 @@ public class BetterMarshal<T> {
 	}
 	
 	private void write(String name, Collection<?> values) {
-		writer.startNode(name);
-		for (Object bean : values) {
-			delegate(bean);
+		if (writer instanceof JsonWriter) {
+			((JsonWriter) writer).startNode(name, values.getClass());
+	        context.convertAnother(values);
+			writer.endNode();
+		} else {
+			context.convertAnother(values);			
 		}
-		writer.endNode();
 	}
 	
 	private String defaultIfEmpty(Object value) {

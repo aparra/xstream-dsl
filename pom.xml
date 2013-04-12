@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.six2six</groupId>
 	<artifactId>xstream-dsl</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<name>xstream-dsl</name>
 	<packaging>jar</packaging>
 
