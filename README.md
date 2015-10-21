@@ -1,4 +1,4 @@
-xstream-dsl - a simple dsl for writer nodes with xstream 
+xstream-dsl - A simple DSL to write using xstream
 ================================================================== 
 
 ### installing
@@ -63,8 +63,8 @@ converter to Invoice:
 	    .node("#dueDate", options(":date_format => dd/MM/yyyy"));
 	}
 
-You can see more utilization on [tests](xstream-dsl/tree/master/src/test/java/br/com/six2six/xstreamdsl)!
+You can see more utilizations at [tests](xstream-dsl/tree/master/src/test/java/br/com/six2six/xstreamdsl)!
 
 ### birth 
 
-[xstream framework](http://xstream.codehaus.org) is cool, but it is boring to work with their converters. Thinking about it, we ([anderparra](https://github.com/aparra), [douglasrodrigo](https://github.com/douglasrodrigo) and [bjornnborg](https://github.com/bjornnborg)) created a new dsl to facilitate our work.
+[Xstream](http://xstream.codehaus.org) is a good framework, but it is boring to work using their converters. Thinking about it, we ([anderparra](https://github.com/aparra), [douglasrodrigo](https://github.com/douglasrodrigo) and [bjornnborg](https://github.com/bjornnborg)) created a DSL to facilitate our work.
